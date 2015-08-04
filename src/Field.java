@@ -25,11 +25,12 @@ public class Field {
      */
     public void randomSetShipOnTheField() {
         Random random = new Random();
-        int randomStartPositionOfShip = random.nextInt(cells.length - ship.createRandomLengthOfShip());
-        int endPosition = randomStartPositionOfShip + ship.createRandomLengthOfShip();
+        int lengthOfShip = ship.createRandomLengthOfShip();
+        int randomStartPositionOfShip = random.nextInt(cells[0].length - lengthOfShip);
+        int endPosition = lengthOfShip;
 
         int randomColumn = random.nextInt(5);
-        for (int i = randomStartPositionOfShip; i < endPosition; i++) {
+        for (int i = 0; i < endPosition; i++) {
             cells[randomColumn][randomStartPositionOfShip + i] = 'x';
         }
     }
