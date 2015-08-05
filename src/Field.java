@@ -4,19 +4,22 @@ import java.util.Random;
  * Created by Кирилл on 04.08.2015.
  */
 public class Field {
-    char[][] cells = createField();
-    Ship ship = new Ship();
+    final int ROWS = 5;
+    final int COLUMNS = 10;
+    private char[][] cells = new char[ROWS][COLUMNS];
+    final int SHIPS_AMOUNT = 5;
+    Ship[] ships = new Ship[SHIPS_AMOUNT];
 
-    char[][] createField() {
-        return cells = new char[5][10];
-    }
-
-    public void fillCellsInFieldArray() {
+    public void fillCellsInArray() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j] = '.';
             }
         }
+    }
+
+    public char[][] getCellsOfField() {
+        return cells;
     }
 
     /**
@@ -25,14 +28,26 @@ public class Field {
      */
     public void randomSetShipOnTheField() {
         Random random = new Random();
-        int lengthOfShip = ship.createRandomLengthOfShip();
-        int randomStartPositionOfShip = random.nextInt(cells[0].length - lengthOfShip);
-        int endPosition = lengthOfShip;
+        for (int i = 0; i < SHIPS_AMOUNT; i++) {
+            Ship tempShip = new Ship();
+            boolean isIntersected;
+            do {
+                isIntersected = false;
 
-        int randomColumn = random.nextInt(5);
-        for (int i = 0; i < endPosition; i++) {
-            cells[randomColumn][randomStartPositionOfShip + i] = 'x';
+                int lengthOfShip = tempShip.createRandomLengthOfShip();
+                tempShip.createRandomPositionOfShip();
+
+                int randomStartPositionOfShip = tempShip.getRandomStartPositionOfShip();
+                int endPositionOfShip = tempShip.getEndPositionOfShip();
+                //сделать проверку на пересечение палуб корабля
+
+                int randomRow = random.nextInt(ROWS);
+                for (int j = 0; j < lengthOfShip; j++) {
+                    cells[randomRow][randomStartPositionOfShip + j] = 'x';
+                }
+            } while (isIntersected);
+
+            ships[i] = tempShip;
         }
     }
-
 }

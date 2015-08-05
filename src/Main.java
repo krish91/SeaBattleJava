@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
         init();
@@ -8,14 +6,12 @@ public class Main {
 
     public static void init() {
         Field field = new Field();
-        field.createField();
-        field.fillCellsInFieldArray();
+        char[][] cellsOfField = field.getCellsOfField();
+        field.fillCellsInArray();
         field.randomSetShipOnTheField();
-        for (int i = 0; i < field.cells.length; i++) {
-            System.out.println(field.cells[i]);
+        for (int i = 0; i < cellsOfField.length; i++) {
+            System.out.println(cellsOfField[i]);
         }
-
-        System.out.println(field.cells.length);
     }
 }
 
