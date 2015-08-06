@@ -6,39 +6,51 @@ import java.util.Random;
 public class Ship {
     private int randomStartPositionOfShip;
     private int endPositionOfShip;
+    private int randomRow;
+    private int lengthOfShip;
 
 
     int createRandomLengthOfShip() {
         Random random = new Random();
-        int length = random.nextInt(4) + 1;
-        return length;
+        lengthOfShip = random.nextInt(4) + 1;
+        return lengthOfShip;
     }
 
     void createRandomPositionOfShip() {
         Random random = new Random();
-//        создаем объект Field, чтобы вытащить длину размер поля
         Field field = new Field();
         char[][] cells = field.getCellsOfField();
         int randomLengthOfShip = createRandomLengthOfShip();
+//        рандомная начальная позиция корабля
         randomStartPositionOfShip = random.nextInt(cells[0].length - randomLengthOfShip);
+//        конечная позиция корабля
         endPositionOfShip = randomStartPositionOfShip + randomLengthOfShip;
+//         рандомная строка, на которой будет располагаться корабль
+        randomRow = random.nextInt(field.getROWS());
+    }
+
+//        делаем проверку - пересекается ли наш корабль с переданным в параметрах кораблем
+    boolean isIntersected(Ship ship) {
+        if (randomRow == ship.randomRow) {
+            if (randomStartPositionOfShip < ship.endPositionOfShip + 1) {
+                return true;
+            }
+            if (endPositionOfShip + 1 < ship.randomStartPositionOfShip) {
+                return true;
+            }
+        }
+        return false;
     }
 
     int getRandomStartPositionOfShip() {
         return randomStartPositionOfShip;
     }
 
-    int getEndPositionOfShip() {
-        return endPositionOfShip;
+    int getRandomRow() {
+        return randomRow;
     }
 
-    boolean isIntersected(Ship ship) {
-        if (randomStartPositionOfShip < ship.endPositionOfShip + 1) {
-            return true;
-        }
-        if (endPositionOfShip + 1 < ship.randomStartPositionOfShip) {
-            return true;
-        }
-        return false;
+    int getLengthOfShip() {
+        return lengthOfShip;
     }
 }

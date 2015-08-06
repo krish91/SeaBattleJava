@@ -4,12 +4,13 @@ import java.util.Random;
  * Created by Кирилл on 04.08.2015.
  */
 public class Field {
-    final int ROWS = 5;
-    final int COLUMNS = 10;
+    private final int ROWS = 5;
+    private final int COLUMNS = 10;
     private char[][] cells = new char[ROWS][COLUMNS];
     final int SHIPS_AMOUNT = 5;
     Ship[] ships = new Ship[SHIPS_AMOUNT];
 
+//    "закрашиваем" наше поле точками
     public void fillCellsInArray() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -18,36 +19,53 @@ public class Field {
         }
     }
 
-    public char[][] getCellsOfField() {
-        return cells;
-    }
-
-    /**
-     * чтобы рандомно поставить наш корабль - нам нужно из длины поля вычесть длину этого рандомного корабля
-     * и опираясь на полученное число, сделать рандомное место расположения
-     */
-    public void randomSetShipOnTheField() {
+//    рандомное расположение кораблей на поле
+    public void randomSetShipsOnTheField() {
         Random random = new Random();
         for (int i = 0; i < SHIPS_AMOUNT; i++) {
             Ship tempShip = new Ship();
             boolean isIntersected;
+
             do {
+//                предположим, что нет пересечений
                 isIntersected = false;
-
-                int lengthOfShip = tempShip.createRandomLengthOfShip();
+//                создаем произвольный размер корабля и рандомную позицию на рандомной строке
+                tempShip.createRandomLengthOfShip();
                 tempShip.createRandomPositionOfShip();
-
-                int randomStartPositionOfShip = tempShip.getRandomStartPositionOfShip();
-                int endPositionOfShip = tempShip.getEndPositionOfShip();
-                //сделать проверку на пересечение палуб корабля
-
-                int randomRow = random.nextInt(ROWS);
-                for (int j = 0; j < lengthOfShip; j++) {
-                    cells[randomRow][randomStartPositionOfShip + j] = 'x';
+//                делаем проверку на пересечение tempShip с предыдущими кораблями. если не проходим - цикл do{} идет заново
+                for (int j = 0; j < i; j++) {
+                    if (tempShip.isIntersected(ships[j])) {
+                        isIntersected = true;
+                    }
                 }
             } while (isIntersected);
-
+//            выйдя из цикла - рисуем наш корабль в массиве и заносим его в массив объектов под индексом i
+            drawShipOnTheField(tempShip);
             ships[i] = tempShip;
         }
+    }
+
+    void drawShipOnTheField(Ship tempShip) {
+        int randomRow = tempShip.getRandomRow();
+        int lengthOfShip = tempShip.getLengthOfShip();
+        int randomStartPositionOfShip = tempShip.getRandomStartPositionOfShip();
+
+        for (int j = 0; j < lengthOfShip; j++) {
+            cells[randomRow][randomStartPositionOfShip + j] = 'x';
+        }
+    }
+
+    void showField() {
+        for (int i = 0; i < cells.length; i++) {
+            System.out.println(cells[i]);
+        }
+    }
+
+    int getROWS() {
+        return ROWS;
+    }
+
+    char[][] getCellsOfField() {
+        return cells;
     }
 }
