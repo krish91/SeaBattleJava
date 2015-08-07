@@ -11,7 +11,7 @@ public class Main {
 
     //    init our field
     public static void init() {
-        System.out.println("This game is BattleField. \nRandom sizes of ships set on random places.\nHave fun!\n");
+        System.out.println("This game is SeaBattle. \nRandom sizes of ships set on random places.\nHave fun!\n");
         field.fillCellsInArray();
         field.randomSetShipsOnTheField();
         field.showField();

@@ -5,7 +5,7 @@ import java.util.Random;
  * Created by Кирилл on 04.08.2015.
  */
 public class Field {
-    private final int ROWS = 2;
+    private final int ROWS = 5;
     private final int COLUMNS = 10;
     private char[][] cells = new char[ROWS][COLUMNS];
     final int SHIPS_AMOUNT = ROWS + 1;
@@ -74,19 +74,15 @@ public class Field {
             case 'x':
                 System.out.println("Hit!!!");
                 cells[x][y] = '-';
-                System.out.println();
                 break;
             case '.':
                 System.out.println("Miss!!!");
                 cells[x][y] = '*';
-                System.out.println();
                 break;
             case '*':
                 System.out.println("Try again!!!");
-                System.out.println();
             case '-':
                 System.out.println("Do you want to kill dead ship? LOL");
-                System.out.println();
                 break;
             default:
                 System.out.println("hmm..");

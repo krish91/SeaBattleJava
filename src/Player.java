@@ -11,13 +11,25 @@ public class Player {
 
     void doShoot() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Do your shot.\nCoordinate X:");
-        int x = Integer.parseInt(reader.readLine());
-        System.out.println("Coordinate Y:");
-        int y = Integer.parseInt(reader.readLine());
 
-        setxShoot(x);
-        setyShoot(y);
+        try {
+            System.out.println("Do your shot.\nCoordinate X:");
+            int x = Integer.parseInt(reader.readLine());
+            setxShoot(x);
+        } catch (NumberFormatException e) {
+            System.out.println("You sent empty string, so... You're bad boy :D\nI set first position instead of you");
+            setxShoot(0);
+        }
+
+        try {
+            System.out.println("Coordinate Y:");
+            int y = Integer.parseInt(reader.readLine());
+            setyShoot(y);
+        } catch (NumberFormatException e) {
+            System.out.println("You sent empty string, so... You're bad boy :D\nI set first position instead of you");
+            setyShoot(0);
+            System.out.println();
+        }
     }
 
     public int getxShoot() {
