@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -9,6 +10,7 @@ public class Field {
     private char[][] cells = new char[ROWS][COLUMNS];
     final int SHIPS_AMOUNT = 5;
     Ship[] ships = new Ship[SHIPS_AMOUNT];
+    Player player = new Player();
 
 //    "закрашиваем" наше поле точками
     public void fillCellsInArray() {
@@ -58,6 +60,29 @@ public class Field {
     void showField() {
         for (int i = 0; i < cells.length; i++) {
             System.out.println(cells[i]);
+        }
+    }
+
+    void setShot(int[] shot) {
+//        берем координаты выстрела и делаем проверку - если попали по X, тогда
+//        закрашиваем это место минусом
+        System.out.println("X: " + shot[0] + " Y: " + shot[1]);
+        int x = shot[0];
+        int y = shot[1];
+
+        switch (cells[x][y]) {
+            case 'x':
+                System.out.println("Hit!");
+                cells[x][y] = '-';
+                break;
+            case '.':
+                System.out.println("Miss!");
+                break;
+            case '-':
+                System.out.println("Try again");
+                break;
+            default:
+                System.out.println("hmm..");
         }
     }
 
