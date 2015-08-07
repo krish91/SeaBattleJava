@@ -5,14 +5,14 @@ import java.util.Random;
  * Created by Кирилл on 04.08.2015.
  */
 public class Field {
-    private final int ROWS = 5;
+    private final int ROWS = 2;
     private final int COLUMNS = 10;
     private char[][] cells = new char[ROWS][COLUMNS];
-    final int SHIPS_AMOUNT = 5;
+    final int SHIPS_AMOUNT = ROWS + 1;
     Ship[] ships = new Ship[SHIPS_AMOUNT];
     Player player = new Player();
 
-//    "закрашиваем" наше поле точками
+    //    set points(.) on our field
     public void fillCellsInArray() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -21,7 +21,7 @@ public class Field {
         }
     }
 
-//    рандомное расположение кораблей на поле
+    //    random set ships on the field
     public void randomSetShipsOnTheField() {
         Random random = new Random();
         for (int i = 0; i < SHIPS_AMOUNT; i++) {
@@ -59,27 +59,34 @@ public class Field {
 
     void showField() {
         for (int i = 0; i < cells.length; i++) {
+            System.out.print((i + 1) + ") ");
             System.out.println(cells[i]);
         }
+        System.out.println();
     }
 
     void setShot(int[] shot) {
-//        берем координаты выстрела и делаем проверку - если попали по X, тогда
-//        закрашиваем это место минусом
-        System.out.println("X: " + shot[0] + " Y: " + shot[1]);
+//        take coordinates(where our player did shot) and check - if hit by X and Y set on that place '-'
         int x = shot[0];
         int y = shot[1];
 
         switch (cells[x][y]) {
             case 'x':
-                System.out.println("Hit!");
+                System.out.println("Hit!!!");
                 cells[x][y] = '-';
+                System.out.println();
                 break;
             case '.':
-                System.out.println("Miss!");
+                System.out.println("Miss!!!");
+                cells[x][y] = '*';
+                System.out.println();
                 break;
+            case '*':
+                System.out.println("Try again!!!");
+                System.out.println();
             case '-':
-                System.out.println("Try again");
+                System.out.println("Do you want to kill dead ship? LOL");
+                System.out.println();
                 break;
             default:
                 System.out.println("hmm..");

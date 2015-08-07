@@ -9,7 +9,7 @@ public class Player {
     private int xShoot;
     private int yShoot;
 
-    void doShoot () throws IOException {
+    void doShoot() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Do your shot.\nCoordinate X:");
         int x = Integer.parseInt(reader.readLine());

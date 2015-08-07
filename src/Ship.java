@@ -21,15 +21,15 @@ public class Ship {
         Field field = new Field();
         char[][] cells = field.getCellsOfField();
         int randomLengthOfShip = createRandomLengthOfShip();
-//        рандомная начальная позиция корабля
+//        random start position of ship
         randomStartPositionOfShip = random.nextInt(cells[0].length - randomLengthOfShip);
-//        конечная позиция корабля
+//        end position of ship
         endPositionOfShip = randomStartPositionOfShip + randomLengthOfShip;
 //         рандомная строка, на которой будет располагаться корабль
         randomRow = random.nextInt(field.getROWS());
     }
 
-//        делаем проверку - пересекается ли наш корабль с переданным в параметрах кораблем
+    //        checking - is our ship intersect with other ships?
     boolean isIntersected(Ship ship) {
         if (randomRow == ship.randomRow) {
             if (randomStartPositionOfShip < ship.endPositionOfShip + 1) {
